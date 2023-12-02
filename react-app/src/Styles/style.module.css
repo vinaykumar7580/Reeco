@@ -1,253 +1,249 @@
-
-nav{
-    background-color:#005700;
-    color:#FFFFFF;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding:0px 150px;
+nav {
+  background-color: #005700;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 150px;
 }
 
-.logo_box{
-    display: flex;
-    text-align: bottom;
-    justify-content: space-between;
-    align-items: center;
-    gap:50px;
-    
+.logo_box {
+  display: flex;
+  text-align: bottom;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
 }
-.logo_box h1{
-    font-size: 30px;
-    font-family:'Times New Roman', Times, serif;
+.logo_box h1 {
+  font-size: 30px;
+  font-family: "Times New Roman", Times, serif;
 }
-a{
-   color:#e6e3e3;
-   text-decoration: none;
-   font-size: 17px;
-
+a {
+  color: #e6e3e3;
+  text-decoration: none;
+  font-size: 17px;
 }
 
-a:hover{
-    text-decoration: underline;
+a:hover {
+  text-decoration: underline;
 }
 
-.profile_box{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap:50px;
-    
+.profile_box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
 }
-.profile_box p{
-    color:#e6e3e3;
-    font-size: 17px;
-    cursor: pointer;
+.profile_box p {
+  color: #e6e3e3;
+  font-size: 17px;
+  cursor: pointer;
 }
-.profile_box div{
-    font-size: 25px;
-    padding-top:5px;
-    position: relative;
-    
-
+.profile_box div {
+  font-size: 25px;
+  padding-top: 5px;
+  position: relative;
 }
 
-.profile_box>div>div{
-    border-radius: 120px;
-    text-align: center;
-    margin: auto;
-    width:13px;
-    height: 8px;
-    font-size:10px;
-    font-weight: bold;
-    background-color: rgb(31, 219, 31);
-    position: absolute;
-    top:3px;
-    left:12px;
-    
-
+.profile_box > div > div {
+  border-radius: 120px;
+  text-align: center;
+  margin: auto;
+  width: 13px;
+  height: 8px;
+  font-size: 10px;
+  font-weight: bold;
+  background-color: rgb(31, 219, 31);
+  position: absolute;
+  top: 3px;
+  left: 12px;
 }
-.profile_box>p{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap:5px;
+.profile_box > p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 }
-.profile_box>p>div{
-   text-align: bottom;
-   margin:bottom;
+.profile_box > p > div {
+  text-align: bottom;
+  margin: bottom;
 }
 
-section{
-    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
+section {
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
+    rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px,
+    rgba(0, 0, 0, 0.07) 0px 16px 16px;
 }
 
-.section_first_box{
-    text-align: left;
-    color: black;
-    font-size: 16px;
-    margin-top: 10px;
-    padding:0px 150px;
+.section_first_box {
+  text-align: left;
+  color: black;
+  font-size: 16px;
+  margin-top: 10px;
+  padding: 0px 150px;
 }
 
-.section_first_box span{
-    text-decoration: underline;
+.section_first_box span {
+  text-decoration: underline;
 }
 
-.section_second_box{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding:0px 150px;
+.section_second_box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 150px;
 }
 
-.section_second_box>div>h1{
-    font-size: 25px;
+.section_second_box > div > h1 {
+  font-size: 25px;
 }
 
-.section_second_box>div>button:first-child{
-    padding:7px 14px;
-    border: 1px solid #005700;
-    font-weight: bold;
-    border-radius: 120px;
-    color:#005700;
-    margin-right: 20px;
-    cursor: pointer;
-
+.section_second_box > div > button:first-child {
+  padding: 7px 14px;
+  border: 1px solid #005700;
+  font-weight: bold;
+  border-radius: 120px;
+  color: #005700;
+  margin-right: 20px;
+  cursor: pointer;
 }
 
-.section_second_box>div>button:last-child{
-    padding:7px 14px;
-    border: 1px solid #005700;
-    font-weight: bold;
-    border-radius: 120px;
-    color:#FFFFFF;
-    background-color: #005700;
-    cursor: pointer;
-
+.section_second_box > div > button:last-child {
+  padding: 7px 14px;
+  border: 1px solid #005700;
+  font-weight: bold;
+  border-radius: 120px;
+  color: #ffffff;
+  background-color: #005700;
+  cursor: pointer;
 }
 
-main{
-    width: 82%;
-    margin: auto;
-    margin-top: 30px;
+main {
+  width: 82%;
+  margin: auto;
+  margin-top: 30px;
 }
 
-.main_first_box{
-    border:1px solid rgb(225, 221, 221);
-    border-radius: 10px;
-    padding:15px 0px;
-    display: flex;
-    justify-content:space-between;
-    align-items: start;
+.main_first_box {
+  border: 1px solid rgb(225, 221, 221);
+  border-radius: 10px;
+  padding: 15px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
 }
 
-.main_first_box div{
-    width:80%;
-    border-right:1px solid rgb(225, 221, 221);
-    padding:0px 20px;
-    text-align: left;
-    
-    
+.main_first_box div {
+  width: 80%;
+  border-right: 1px solid rgb(225, 221, 221);
+  padding: 0px 20px;
+  text-align: left;
 }
-.main_first_box>div>h3{
-    margin-top: -10px;
-
+.main_first_box > div > h3 {
+  margin-top: -10px;
 }
 
-.main_second_box{
-    border:1px solid rgb(225, 221, 221);
-    border-radius: 10px;
-    margin-top: 20px;
-    padding:20px 30px;
+.main_second_box {
+  border: 1px solid rgb(225, 221, 221);
+  border-radius: 10px;
+  margin-top: 20px;
+  padding: 20px 30px;
 }
 
-.product_search_box{
-    display: flex;
-    justify-content:space-between;
-    align-items: center;
-
+.product_search_box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.input_box{
-    border:1px solid rgb(225, 221, 221);
-    border-radius: 50px;
-    padding-left:25px;
+.input_box {
+  border: 1px solid rgb(225, 221, 221);
+  border-radius: 50px;
+  padding-left: 25px;
 }
 
-.input{
-    border:none;
-    outline: none;
+.input {
+  border: none;
+  outline: none;
 }
 
-.add_item_button_box{
-    display: flex;
-    justify-content:space-between;
-    align-items: center;
-    gap:20px;
+.add_item_button_box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
 }
-.add_item_button_box>button{
-    padding:7px 14px;
-    border: 1px solid #005700;
-    font-weight: bold;
-    border-radius: 120px;
-    color:#005700;
-    margin-right: 20px;
-    cursor: pointer;
-
-}
-
-.container_table{
-    margin-top:30px;
+.add_item_button_box > button {
+  padding: 7px 14px;
+  border: 1px solid #005700;
+  font-weight: bold;
+  border-radius: 120px;
+  color: #005700;
+  margin-right: 20px;
+  cursor: pointer;
 }
 
-table{
-    width:100%;
+.container_table {
+  margin-top: 30px;
 }
 
-table>thead>tr>th{
-    border:1px solid rgb(225, 221, 221);
-    padding:5px 20px;
-} 
-
-
-table>tbody>tr>td:first-child{
-    display: flex;
-    justify-content:left;
-    align-items: center;
-    gap:20px;
+table {
+  width: 100%;
 }
 
-table>tbody>tr{
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+table > thead > tr > th {
+  border: 1px solid rgb(225, 221, 221);
+  padding: 5px 20px;
 }
 
-
-table>tbody>tr>td:first-child>div:first-child{
-    width: 7%;
+table > tbody > tr > td:first-child {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 20px;
 }
 
-table>tbody>tr>td:first-child>div:first-child>img{
-    width: 100%;
-    height: 100%;
+table > tbody > tr {
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
 }
 
-table>tbody>tr>td:last-child{
-    display: flex;
-    justify-content:right;
-    align-items: center;
-    gap:20px;
+table > tbody > tr > td:first-child > div:first-child {
+  width: 7%;
 }
 
-table>tbody>tr>td:last-child>div:last-child{
-    display: flex;
-    justify-content:center;
-    align-items: center;
-    gap:10px;
+table > tbody > tr > td:first-child > div:first-child > img {
+  width: 100%;
+  height: 100%;
 }
 
+table > tbody > tr > td:last-child {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  gap: 20px;
+}
 
+table > tbody > tr > td:last-child > div:last-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
 
+.edit_box {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.edit_box > div > img {
+  width: 100%;
+  height: 100%;
+}
+.edit_box > div {
+  width: 25%;
+  margin: auto;
+}
 
-
-
-
+.edit_box > div:last-child > h4 > input {
+  width: 77%;
+}

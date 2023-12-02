@@ -19,13 +19,30 @@ import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../Redux/action";
+import { getProducts, getSingleProducts } from "../Redux/action";
 
 function Dashboard() {
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
+  const [open2, setOpen2] = useState(false);
   const [id, setId] = useState(1);
-  const [status, setStatus] = useState("Approved");
+  const [status, setStatus] = useState("");
+
+  const dispatch = useDispatch();
+
+  const { product, productSingle } = useSelector((store) => store.reducer);
+
+  const [formPrice, setFormPrice] = useState(productSingle?.newprice || 0);
+  const [formQuantity, setFormQuantity] = useState(
+    productSingle?.quantity || 0
+  );
+  const [formStatus, setFormStatus] = useState(productSingle?.status || "");
+
+  useEffect(() => {
+    setFormPrice(productSingle?.newprice || 0);
+    setFormQuantity(productSingle?.quantity || 0);
+    setFormStatus(productSingle?.status || "");
+  }, [productSingle]);
 
   const handleOpen = (todo, newStatus) => {
     setOpen(true);
@@ -47,12 +64,18 @@ function Dashboard() {
     setOpen1(false);
   };
 
-  const dispatch = useDispatch();
+  const handleOpen2 = (todo) => {
+    setOpen2(true);
+    setId(todo);
+  };
 
-  const { product } = useSelector((store) => store.reducer);
+  const handleClose2 = () => {
+    setOpen2(false);
+  };
 
   useEffect(() => {
     handleGetData();
+    handleSingleProduct();
   }, [id, status]);
 
   const handleGetData = () => {
@@ -73,7 +96,6 @@ function Dashboard() {
   };
 
   const handleUpdateStatus = () => {
-    console.log(id, status);
     fetch(`http://localhost:8080/data/${id}`, {
       method: "PATCH",
       body: JSON.stringify({ status: status }),
@@ -94,6 +116,46 @@ function Dashboard() {
     setOpen1(false);
   };
 
+  const handleSingleProduct = () => {
+    fetch(`http://localhost:8080/data/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "Application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        dispatch(getSingleProducts(res));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleEdit = () => {
+    fetch(`http://localhost:8080/data/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        newprice: formPrice,
+        quantity: formQuantity,
+        status: formStatus,
+      }),
+      headers: {
+        "Content-Type": "Application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        // console.log(res);
+        handleGetData();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    setOpen2(false);
+  };
+
   const isBackColor = (color) => {
     if (color == "Approved") {
       return "green";
@@ -103,8 +165,6 @@ function Dashboard() {
       return "orange";
     }
   };
-
-  //console.log("product", product);
 
   return (
     <div>
@@ -207,7 +267,7 @@ function Dashboard() {
                     <tr key={el.id}>
                       <td>
                         <div>
-                          <img src={avocado} alt="image" />
+                          <img src={avocado} alt="images" />
                         </div>
                         <div>
                           <h4>{el.name}</h4>
@@ -236,14 +296,14 @@ function Dashboard() {
                       <td>
                         {el.price > 0 ? (
                           <div>
-                            <h4>${el.newprice * el.quantity*12}</h4>
+                            <h4>${el.newprice * el.quantity * 12}</h4>
                             <h4 style={{ textDecoration: "line-through" }}>
-                              ${el.price * el.quantity*12}
+                              ${el.price * el.quantity * 12}
                             </h4>
                           </div>
                         ) : (
                           <div>
-                            <h4>${el.newprice * el.quantity*12}</h4>
+                            <h4>${el.newprice * el.quantity * 12}</h4>
                           </div>
                         )}
                       </td>
@@ -303,9 +363,86 @@ function Dashboard() {
                             </Dialog>
                           </div>
                           <div>
-                            <IconButton>
+                            <IconButton onClick={() => handleOpen2(el.id)}>
                               <EditCalendarIcon />
                             </IconButton>
+
+                            <Dialog
+                              PaperProps={{ style: { padding: "20px" } }}
+                              open={open2}
+                              onClose={handleClose2}
+                            >
+                              <DialogTitle>
+                                {productSingle && productSingle?.name}
+                              </DialogTitle>
+                              <DialogContent>
+                                <DialogContentText>
+                                  American Roland
+                                </DialogContentText>
+                                <div className={style.edit_box}>
+                                  <div>
+                                    <img src={avocado} alt="poster" />
+                                  </div>
+                                  <div>
+                                    <h4>price</h4>
+                                    <h4>quantity</h4>
+                                    <h4>status</h4>
+                                  </div>
+                                  <div>
+                                    <h4>
+                                      <input
+                                        type="number"
+                                        value={formPrice}
+                                        onChange={(e) =>
+                                          setFormPrice(e.target.value)
+                                        }
+                                      />
+                                    </h4>
+                                    <h4>
+                                      <input
+                                        type="number"
+                                        value={formQuantity}
+                                        onChange={(e) =>
+                                          setFormQuantity(e.target.value)
+                                        }
+                                      />
+                                    </h4>
+                                    <h4>
+                                      <select
+                                        value={formStatus}
+                                        onChange={(e) =>
+                                          setFormStatus(e.target.value)
+                                        }
+                                      >
+                                        <option value="Approved">
+                                          Approve
+                                        </option>
+                                        <option value="Missing">Missing</option>
+                                        <option value="Missing_Urgent">
+                                          Missing Urgent
+                                        </option>
+                                      </select>
+                                    </h4>
+                                  </div>
+                                </div>
+                              </DialogContent>
+                              <DialogActions>
+                                <Button
+                                  variant="contained"
+                                  color="primary"
+                                  onClick={handleEdit}
+                                >
+                                  Edit
+                                </Button>
+                                <Button
+                                  variant="contained"
+                                  color="primary"
+                                  onClick={handleClose2}
+                                >
+                                  Cancel
+                                </Button>
+                              </DialogActions>
+                            </Dialog>
                           </div>
                         </div>
                       </td>

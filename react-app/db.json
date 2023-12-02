@@ -5,18 +5,18 @@
       "name": "Chicken Breast Fillets, Boneless matuu maMarinated 6 Ounce Raw, Inviv",
       "brand": "Hormel Black LabelMany",
       "price": 0,
-      "newprice": 20,
+      "newprice": "2000",
       "quantity": 13,
-      "status": "Missing"
+      "status": "Missing_Urgent"
     },
     {
       "id": 2,
       "name": "Chicken Breast Fillets, Boneless matuu maMarinated 6 Ounce Raw, Inviv",
       "brand": "Hormel Black LabelMany",
       "price": 10,
-      "newprice": 20,
+      "newprice": "400",
       "quantity": 11,
-      "status": "Approved"
+      "status": "Missing_Urgent"
     },
     {
       "id": 3,
@@ -25,7 +25,7 @@
       "price": 10,
       "newprice": 20,
       "quantity": 43,
-      "status": "Approved"
+      "status": "Missing_Urgent"
     },
     {
       "id": 4,
@@ -33,8 +33,8 @@
       "brand": "Hormel Black LabelMany",
       "price": 10,
       "newprice": 20,
-      "quantity": 0,
-      "status": "Approved"
+      "quantity": "45",
+      "status": "Missing_Urgent"
     }
   ]
 }

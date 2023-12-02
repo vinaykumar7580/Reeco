@@ -10,6 +10,13 @@ export const getProducts=(payload)=>{
 
 }
 
+export const getSingleProducts=(payload)=>{
+    return{
+        type:types.GET_SINGLE_PRODUCT,
+        payload
+    }
+}
+
 
 
 

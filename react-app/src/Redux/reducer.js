@@ -2,6 +2,7 @@ import * as types from "./actionTypes";
 
 const initialState = {
   product: [],
+  productSingle:{}
 };
 
 const reducer = (state = initialState, action) => {
@@ -10,6 +11,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         product: action.payload,
+      }
+    case types.GET_SINGLE_PRODUCT:
+      return{
+        ...state,
+        productSingle:action.payload
       }
     
     default:
