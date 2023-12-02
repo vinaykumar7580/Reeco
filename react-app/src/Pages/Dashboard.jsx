@@ -19,55 +19,80 @@ import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { GetProduct } from "../Redux/action";
-
+import { getProducts } from "../Redux/action";
 
 function Dashboard() {
-  const [openRight, setOpenRight] = useState(false);
-  const [openWrong, setOpenWrong] = useState(false);
-  const [openEdit, setOpenEdit] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [open1, setOpen1] = useState(false);
+  const [id, setId] = useState(1);
+  const [status, setStatus] = useState("Approved");
 
-  const dispatch=useDispatch()
-
-  const {product}=useSelector((store)=>store.reducer)
-
-  useEffect(()=>{
-    dispatch(GetProduct)
-    
-  },[])
-
-  
-
-
-  const handleOpenRight = () => {
-    setOpenRight(true);
+  const handleOpen = (todo, newStatus) => {
+    setOpen(true);
+    setId(todo);
+    setStatus(newStatus);
   };
 
-  const handleCloseRight = () => {
-    setOpenRight(false);
+  const handleClose = () => {
+    setOpen(false);
   };
 
-  const handleOpenWrong = () => {
-    setOpenWrong(true);
+  const handleOpen1 = (todo, newStatus) => {
+    setOpen1(true);
+    setId(todo);
+    setStatus(newStatus);
   };
 
-  const handleCloseWrong = () => {
-    setOpenWrong(false);
+  const handleClose1 = () => {
+    setOpen1(false);
   };
 
-  const handleOpenEdit = () => {
-    setOpenEdit(true);
+  const dispatch = useDispatch();
+
+  const { product } = useSelector((store) => store.reducer);
+
+  useEffect(() => {
+    handleGetData();
+  }, [id, status]);
+
+  const handleGetData = () => {
+    fetch("http://localhost:8080/data", {
+      method: "GET",
+      headers: {
+        "Content-Type": "Application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        // console.log("apidata", res);
+        dispatch(getProducts(res));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
-  const handleCloseEdit = () => {
-    setOpenEdit(false);
+  const handleUpdateStatus = () => {
+    console.log(id, status);
+    fetch(`http://localhost:8080/data/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify({ status: status }),
+      headers: {
+        "Content-Type": "Application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        // console.log(res);
+        handleGetData();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    setOpen(false);
+    setOpen1(false);
   };
-
-  const handleUpdateStatus=(id, status)=>{
-    
-    
-
-  }
 
   const isBackColor = (color) => {
     if (color == "Approved") {
@@ -79,7 +104,7 @@ function Dashboard() {
     }
   };
 
-  console.log("product", product)
+  //console.log("product", product);
 
   return (
     <div>
@@ -179,7 +204,7 @@ function Dashboard() {
               <tbody>
                 {product &&
                   product?.map((el) => (
-                    <tr>
+                    <tr key={el.id}>
                       <td>
                         <div>
                           <img src={avocado} alt="image" />
@@ -192,14 +217,35 @@ function Dashboard() {
                         <h4>{el.brand}</h4>
                       </td>
                       <td>
-                        <h4>${el.newprice}/6*1LB</h4>
-                        <h4>${el.oldprice}/6*1LB</h4>
+                        {el.price > 0 ? (
+                          <div>
+                            <h4>${el.newprice}/6*1LB</h4>
+                            <h4 style={{ textDecoration: "line-through" }}>
+                              ${el.price}/6*1LB
+                            </h4>
+                          </div>
+                        ) : (
+                          <div>
+                            <h4>${el.newprice}/6*1LB</h4>
+                          </div>
+                        )}
                       </td>
                       <td>
                         <h4>{el.quantity}x6*1LB</h4>
                       </td>
                       <td>
-                        <h4>{el.newprice * el.quantity}</h4>
+                        {el.price > 0 ? (
+                          <div>
+                            <h4>${el.newprice * el.quantity*12}</h4>
+                            <h4 style={{ textDecoration: "line-through" }}>
+                              ${el.price * el.quantity*12}
+                            </h4>
+                          </div>
+                        ) : (
+                          <div>
+                            <h4>${el.newprice * el.quantity*12}</h4>
+                          </div>
+                        )}
                       </td>
                       <td>
                         <div>
@@ -217,57 +263,49 @@ function Dashboard() {
                         </div>
                         <div>
                           <div>
-                            <IconButton onClick={handleOpenRight}>
+                            <IconButton
+                              onClick={() => handleOpen(el.id, "Approved")}
+                            >
                               <CheckIcon />
                             </IconButton>
 
-                            <Dialog open={openRight} onClose={handleCloseRight}>
+                            <Dialog open={open} onClose={handleClose}>
                               <DialogTitle>Approved Product</DialogTitle>
                               <DialogContent>
-                                <DialogContentText>
-                                  Is "{el.name}" Approved?
-                                </DialogContentText>
+                                <DialogContentText>{el.name}</DialogContentText>
                               </DialogContent>
                               <DialogActions>
-                                <Button onClick={handleUpdateStatus(el.id, "Approved")}>Yes</Button>
-                                <Button onClick={handleCloseRight}>No</Button>
+                                <Button onClick={handleUpdateStatus}>
+                                  Yes
+                                </Button>
+                                <Button onClick={handleClose}>No</Button>
                               </DialogActions>
                             </Dialog>
                           </div>
                           <div>
-                            <IconButton onClick={handleOpenWrong}>
+                            <IconButton
+                              onClick={() => handleOpen1(el.id, "Missing")}
+                            >
                               <ClearIcon />
                             </IconButton>
 
-                            <Dialog open={openWrong} onClose={handleCloseRight}>
+                            <Dialog open={open1} onClose={handleClose1}>
                               <DialogTitle>Missing Product</DialogTitle>
                               <DialogContent>
-                                <DialogContentText>
-                                  Is "{el.name}" Missing?
-                                </DialogContentText>
+                                <DialogContentText>{el.name}</DialogContentText>
                               </DialogContent>
                               <DialogActions>
-                                <Button>Yes</Button>
-                                <Button onClick={handleCloseWrong}>No</Button>
+                                <Button onClick={handleUpdateStatus}>
+                                  Yes
+                                </Button>
+                                <Button onClick={handleClose1}>No</Button>
                               </DialogActions>
                             </Dialog>
                           </div>
                           <div>
-                            <IconButton onClick={handleOpenEdit}>
+                            <IconButton>
                               <EditCalendarIcon />
                             </IconButton>
-
-                            <Dialog open={openEdit} onClose={handleCloseEdit}>
-                              <DialogTitle>Popup Title</DialogTitle>
-                              <DialogContent>
-                                <DialogContentText>
-                                  This is the content of your popup.
-                                </DialogContentText>
-                              </DialogContent>
-                              <DialogActions>
-                                <Button onClick={handleCloseEdit}>Close</Button>
-                              </DialogActions>
-                            </Dialog>
                           </div>
                         </div>
                       </td>
