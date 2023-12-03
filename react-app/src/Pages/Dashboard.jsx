@@ -25,8 +25,11 @@ function Dashboard() {
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
-  const [id, setId] = useState(1);
+  const [id, setId] = useState(0);
+  const [id1, setId1] = useState(0);
+  const [id2, setId2] = useState(0);
   const [status, setStatus] = useState("");
+  const [status1, setStatus1] = useState("");
 
   const dispatch = useDispatch();
 
@@ -44,20 +47,19 @@ function Dashboard() {
     setFormStatus(productSingle?.status || "");
   }, [productSingle]);
 
-  const handleOpen = (todo, newStatus) => {
+  const handleOpen = (todo) => {
     setOpen(true);
     setId(todo);
-    setStatus(newStatus);
   };
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const handleOpen1 = (todo, newStatus) => {
+  const handleOpen1 = (todo) => {
     setOpen1(true);
-    setId(todo);
-    setStatus(newStatus);
+    setId1(todo);
+    
   };
 
   const handleClose1 = () => {
@@ -66,7 +68,7 @@ function Dashboard() {
 
   const handleOpen2 = (todo) => {
     setOpen2(true);
-    setId(todo);
+    setId2(todo);
   };
 
   const handleClose2 = () => {
@@ -75,11 +77,14 @@ function Dashboard() {
 
   useEffect(() => {
     handleGetData();
+  }, []);
+
+  useEffect(()=>{
     handleSingleProduct();
-  }, [id, status]);
+  },[id2])
 
   const handleGetData = () => {
-    fetch("http://localhost:8080/data", {
+    fetch("https://lucky-plum-swimsuit.cyclic.app/data", {
       method: "GET",
       headers: {
         "Content-Type": "Application/json",
@@ -96,9 +101,9 @@ function Dashboard() {
   };
 
   const handleUpdateStatus = () => {
-    fetch(`http://localhost:8080/data/${id}`, {
+    fetch(`https://lucky-plum-swimsuit.cyclic.app/data/${id}`, {
       method: "PATCH",
-      body: JSON.stringify({ status: status }),
+      body: JSON.stringify({ status:"Approved"}),
       headers: {
         "Content-Type": "Application/json",
       },
@@ -113,11 +118,32 @@ function Dashboard() {
       });
 
     setOpen(false);
+    
+  };
+
+  const handleUpdateStatus1 = () => {
+    fetch(`https://lucky-plum-swimsuit.cyclic.app/data/${id1}`, {
+      method: "PATCH",
+      body: JSON.stringify({ status: "Missing" }),
+      headers: {
+        "Content-Type": "Application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        // console.log(res);
+        handleGetData();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     setOpen1(false);
+    
   };
 
   const handleSingleProduct = () => {
-    fetch(`http://localhost:8080/data/${id}`, {
+    fetch(`https://lucky-plum-swimsuit.cyclic.app/data/${id2}`, {
       method: "GET",
       headers: {
         "Content-Type": "Application/json",
@@ -133,7 +159,7 @@ function Dashboard() {
   };
 
   const handleEdit = () => {
-    fetch(`http://localhost:8080/data/${id}`, {
+    fetch(`https://lucky-plum-swimsuit.cyclic.app/data/${id2}`, {
       method: "PATCH",
       body: JSON.stringify({
         newprice: formPrice,
@@ -148,6 +174,7 @@ function Dashboard() {
       .then((res) => {
         // console.log(res);
         handleGetData();
+        
       })
       .catch((err) => {
         console.log(err);
@@ -324,7 +351,7 @@ function Dashboard() {
                         <div>
                           <div>
                             <IconButton
-                              onClick={() => handleOpen(el.id, "Approved")}
+                              onClick={() => handleOpen(el.id)}
                             >
                               <CheckIcon />
                             </IconButton>
@@ -344,7 +371,7 @@ function Dashboard() {
                           </div>
                           <div>
                             <IconButton
-                              onClick={() => handleOpen1(el.id, "Missing")}
+                              onClick={() => handleOpen1(el.id)}
                             >
                               <ClearIcon />
                             </IconButton>
@@ -355,7 +382,7 @@ function Dashboard() {
                                 <DialogContentText>{el.name}</DialogContentText>
                               </DialogContent>
                               <DialogActions>
-                                <Button onClick={handleUpdateStatus}>
+                                <Button onClick={handleUpdateStatus1}>
                                   Yes
                                 </Button>
                                 <Button onClick={handleClose1}>No</Button>
